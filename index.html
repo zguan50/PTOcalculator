@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple PTO Calculator</title>
+    <style>
+        body { font-family: sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; text-align: center; }
+        .input-group { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0; }
+        label { min-width: 80px; text-align: right; }
+        input[type="number"] { padding: 5px; width: 150px; }
+        #result { margin-top: 20px; font-weight: bold; }
+        button { margin-top: 10px; padding: 8px 12px; border: none; background: #007bff; color: white; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .checkbox-label { display: flex; align-items: center; justify-content: center; margin: 10px 0; font-size: 16px; }
+        .checkbox-label span { margin-left: 2px; }
+        img.logo { max-width: 150px; margin-bottom: 15px; }
+        .disclaimer { font-size: 12px; color: #555; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <img src="https://xilin.homes/wp-content/uploads/2024/12/cropped-xilin_logo_we-care-light-green.png" alt="Logo" class="logo">
+    <h2>Xilin PTO Calculator</h2>
+
+    <div class="input-group">
+        <label for="ytd">YTD Hours:</label>
+        <input type="number" id="ytd" name="ytd" placeholder="Enter YTD Hours" min="0">
+    </div>
+
+    <div class="input-group">
+        <label for="pto">PTO:</label>
+        <input type="number" id="pto" name="pto" placeholder="Enter PTO" min="0">
+    </div>
+
+    <label class="checkbox-label">
+        <input type="checkbox" id="chicago" name="chicago"><span>Chicago Worker</span>
+    </label>
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div id="result"></div>
+
+    <div class="disclaimer">Disclaimer: This webpage does not collect or store any data you enter. <a href="https://github.com/your-repo/pto-calculator" target="_blank">View source code here</a>.</div>
+
+    <script>
+        function calculate() {
+            const ytd = parseFloat(document.getElementById('ytd').value) || 0;
+            const pto = parseFloat(document.getElementById('pto').value) || 0;
+
+            if (ytd < 0 || pto < 0) {
+                document.getElementById('result').innerText = "Error: YTD Hours and PTO cannot be negative.";
+                return;
+            }
+
+            const chicago = document.getElementById('chicago').checked;
+            const divisor = chicago ? 35 : 40;
+            const result = (ytd / divisor) - pto;
+
+            document.getElementById('result').innerText = `PTO remaining this year: ${result.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
