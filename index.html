@@ -54,7 +54,11 @@
 
             const chicago = document.getElementById('chicago').checked;
             const divisor = chicago ? 35 : 40;
-            const result = (ytd / divisor) - pto;
+            const total = ytd / divosor;
+            if (total > 40) {
+                total = 40;
+            }
+            const result = total - pto;
 
             document.getElementById('result').innerText = `PTO remaining this year: ${result.toFixed(2)}`;
         }
